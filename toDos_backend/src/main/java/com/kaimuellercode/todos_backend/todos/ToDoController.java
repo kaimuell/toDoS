@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/todo")
 public class ToDoController {
 
@@ -16,13 +16,11 @@ public class ToDoController {
         ToDoItem toDoItem = new ToDoItem();
         toDoItem.setName(item);
         toDoRepository.save(toDoItem);
-        return "ToDoItem - Saved";
+        return  "ToDoItem - Saved";
     }
 
     @GetMapping("/all")
     public @ResponseBody Iterable<ToDoItem> getAllItems(){
-
-        System.out.println("all items send");
         return toDoRepository.findAll();
     }
 
