@@ -17,7 +17,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest(classes = {
+        ToDosBackendApplication.class,
+        TestConfig.class})
 class ToDosBackendApplicationTests {
     @Autowired
     MockMvc mockMvc;
@@ -32,7 +34,7 @@ class ToDosBackendApplicationTests {
         String newItemName = "Buy groceries";
         createTodoItem(newItemName);
 
-        // Retrieve all todo items and check if the new item is present
+        // Retrieve all  items and check if the new item is present
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/todo/all")
@@ -47,10 +49,10 @@ class ToDosBackendApplicationTests {
         String response = result.getResponse().getContentAsString();
         Integer id = JsonPath.parse(response).read("$[0].id");
 
-        // Delete the todo item
+        // Delete the  item
         deleteTodoItem(id);
 
-        // Retrieve all todo items and check if the item is deleted
+        // Retrieve all  items and check if the item is deleted
         mockMvc.perform(MockMvcRequestBuilders.get("/todo/all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isEmpty());
@@ -64,7 +66,7 @@ class ToDosBackendApplicationTests {
     }
 
     private void deleteTodoItem(Integer id) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/todo/delete")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/todo/delete")
                         .param("id", String.valueOf(id)))
                 .andExpect(status().isOk());
     }

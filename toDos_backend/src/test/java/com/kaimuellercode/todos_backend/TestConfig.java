@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 public class TestConfig {
 
     @Bean
-    @Profile("test")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
