@@ -1,10 +1,7 @@
-use std::{fs, path::Path};
-
 use gloo_net::http::Request;
 use yew::prelude::*;
-use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{EventTarget, HtmlInputElement};
-use stylist::{style, global_style};
+use wasm_bindgen::JsValue;
+use stylist::global_style;
 
 use crate::components::elements::*;
 
